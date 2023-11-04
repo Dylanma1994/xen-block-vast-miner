@@ -1,0 +1,39 @@
+# CREATE TABLE IF NOT EXISTS instances (
+#     id INTEGER PRIMARY KEY,                           -- 实例唯一ID
+#     machine_id INTEGER,                               -- 实例的机器ID
+#     gpu_name TEXT,                                    -- GPU型号名称（无引号，将空格替换为下划线，例如：RTX_3090 而不是 'RTX 3090'）
+#     gpu_ram REAL,                                     -- GPU内存容量（以GB为单位）
+#     gpu_frac REAL,                                    -- GPU数量占系统中GPU数量的比例
+#     num_gpus INTEGER,                                 -- GPU数量
+#     compute_cap INTEGER,                              -- CUDA计算能力*100（例如：6.5对应650，7.0对应700）
+#     cpu_cores INTEGER,                                -- 虚拟CPU数量
+#     cpu_cores_effective REAL,                         -- 实际可用的虚拟CPU数量
+#     cpu_ram REAL,                                     -- 系统内存容量（以GB为单位）
+#     dlperf REAL,                                      -- DL性能得分（详见常见问题解答）
+#     dlperf_usd REAL,                                  -- DL性能与价格比值
+#     dph REAL,                                         -- 每小时租用费用（以美元计）
+#     duration REAL,                                    -- 最长租用时长（以天为单位）
+#     min_bid REAL,                                     -- 中断性实例的当前最低出价（以美元/小时计）
+#     rented INTEGER,                                   -- 实例当前是否已租用
+#     rentable INTEGER,                                 -- 实例当前是否可租用
+#     verified INTEGER,                                 -- 机器是否经过验证
+#     external INTEGER,                                 -- 是否显示外部提供的租用信息
+#     has_avx INTEGER,                                  -- CPU是否支持AVX指令集
+#     reliability REAL,                                 -- 机器可靠性得分（详见常见问题解答）
+#     inet_down REAL,                                   -- 网络下载速度（以Mb/s为单位）
+#     inet_down_cost REAL,                              -- 网络下载带宽费用（以美元/GB计）
+#     inet_up REAL,                                     -- 网络上传速度（以Mb/s为单位）
+#     inet_up_cost REAL,                                -- 网络上传带宽费用（以美元/GB计）
+#     direct_port_count INTEGER,                        -- 主机路由器上的开放端口数量
+#     driver_version TEXT,                              -- 主机上使用的驱动程序版本
+#     pci_gen REAL,                                     -- PCIE代数
+#     pcie_bw REAL,                                     -- PCIE带宽（CPU到GPU）
+#     bw_nvlink REAL,                                   -- NVLink带宽
+#     gpu_mem_bw REAL,                                  -- GPU内存带宽（以GB/s为单位）
+#     disk_bw REAL,                                     -- 磁盘读取带宽（以MB/s为单位）
+#     disk_space REAL,                                  -- 磁盘存储空间（以GB为单位）
+#     total_flops REAL,                                 -- 所有GPU的总浮点运算性能（以TFLOPs为单位）
+#     flops_usd REAL,                                   -- 浮点运算性能与价格比值（以TFLOPs/美元计）
+#     storage_cost REAL,                                -- 存储费用（以美元/GB/月计）
+#     cuda_vers REAL                                    -- CUDA版本
+# );

@@ -1,0 +1,14 @@
+{
+  "url": "https://console.vast.ai",
+  "vast_api_key": "bdc70ca54bf58108c0d3305b5b260e7828003c216511d28f6ee81f7b69b7a18f",
+  "eth_address": "0xEfE59673DE05Bce7CF3aae176A78D03Be15dA676",
+  "machine_configs": [
+    {
+      "gpu_name": "RTX_4090",
+      "gpu_nums": 2,
+      "dph": 0.8,
+      "cuda_compute": 89,
+      "machine_nums": 1
+    }
+  ]
+}
