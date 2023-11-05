@@ -1,12 +1,15 @@
 import sqlite3
+from vast.vast_client import Instance
 
-DATABASE_NAME = 'vast.sqlite'
+DATABASE_NAME = 'vast.db'
+
 
 def init_db():
     conn = sqlite3.connect(database=DATABASE_NAME)
     conn.execute('''
 CREATE TABLE IF NOT EXISTS instances (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
+    machine_id INTEGER,
     actual_status TEXT,
     bundle_id INTEGER,
     bw_nvlink REAL,
@@ -62,7 +65,6 @@ CREATE TABLE IF NOT EXISTS instances (
     local_ipaddrs TEXT,
     logo TEXT,
     machine_dir_ssh_port INTEGER,
-    machine_id INTEGER,
     mem_limit REAL,
     mem_usage REAL,
     min_bid REAL,
@@ -89,7 +91,7 @@ CREATE TABLE IF NOT EXISTS instances (
     webpage TEXT
     )
 '''
-    )
+                 )
     conn.commit()
     conn.close()
 
@@ -97,7 +99,7 @@ CREATE TABLE IF NOT EXISTS instances (
 def insert(row_data: dict):
     insert_query = '''
     INSERT INTO instances (
-        actual_status, bundle_id, bw_nvlink, compute_cap, cpu_cores, cpu_cores_effective,
+        id, actual_status, bundle_id, bw_nvlink, compute_cap, cpu_cores, cpu_cores_effective,
         cpu_name, cpu_ram, cpu_util, cuda_max_good, cur_state, direct_port_count,
         direct_port_end, direct_port_start, disk_bw, disk_name, disk_space, disk_util,
         dlperf, dlperf_per_dphtotal, dph_base, dph_total, driver_version, duration,
@@ -112,7 +114,7 @@ def insert(row_data: dict):
         status_msg, storage_cost, storage_total_cost, total_flops, verification,
         vmem_usage, webpage
     ) VALUES (
-        :actual_status, :bundle_id, :bw_nvlink, :compute_cap, :cpu_cores, :cpu_cores_effective,
+        :id, :actual_status, :bundle_id, :bw_nvlink, :compute_cap, :cpu_cores, :cpu_cores_effective,
         :cpu_name, :cpu_ram, :cpu_util, :cuda_max_good, :cur_state, :direct_port_count,
         :direct_port_end, :direct_port_start, :disk_bw, :disk_name, :disk_space, :disk_util,
         :dlperf, :dlperf_per_dphtotal, :dph_base, :dph_total, :driver_version, :duration,
@@ -128,10 +130,19 @@ def insert(row_data: dict):
         :vmem_usage, :webpage
     )
     '''
+
+    conn = sqlite3.connect(database=DATABASE_NAME)
+    cur = conn.cursor()
+    cur.execute(insert_query, row_data)
+    conn.commit()
+    conn.close()
+
+
+def fetchOne():
     with sqlite3.connect(database=DATABASE_NAME) as conn:
-        conn.execute(insert_query, row_data)
-        conn.commit()
+        cur = conn.cursor()
+        cur.execute("select * from instances limit 1")
+        row = cur.fetchone()
+    # metadata trans obj
+    return None if not row else Instance(*row)
 
-
-init_db()
-print("init success")

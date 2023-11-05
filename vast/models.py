@@ -9,6 +9,7 @@ class Instance:
 
     """Class for storing information about a created instance."""
 
+    machine_id: int | None = None
     actual_status: str | None = None
     bundle_id: int | None = None
     bw_nvlink: float | None = None
@@ -65,7 +66,6 @@ class Instance:
     local_ipaddrs: str | None = None
     logo: str | None = None
     machine_dir_ssh_port: int | None = None
-    machine_id: int | None = None
     mem_limit: float | None = None
     mem_usage: float | None = None
     min_bid: float | None = None
@@ -97,6 +97,7 @@ class Machine:
 
     """Class for storing information about a listed machine."""
 
+    machine_id: int | None = None
     bundle_id: int | None = None
     bundled_results: int | None = None
     bw_nvlink: float | None = None
@@ -138,7 +139,6 @@ class Machine:
     inet_up_cost: float | None = None
     is_bid: bool | None = None
     logo: str | None = None
-    machine_id: int | None = None
     min_bid: float | None = None
     mobo_name: str | None = None
     num_gpus: int | None = None
