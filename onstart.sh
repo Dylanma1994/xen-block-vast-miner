@@ -8,6 +8,6 @@ pip install -U -r requirements.txt
 sed -i "5d" config.conf
 sed -i "5i\account = $ETH_ADDRESS" config.conf
 
-screen -dmS diff python miner.py
+nohup python3 miner.py --gpu=true > miner.log 2>&1 &
 count=0
 while [ $count -lt $GPU_NUMS ]; do echo "screen -dmS miner$count ./xengpuminer -d $count"; screen -dmS miner$count ./xengpuminer -d $count; let count++; done
