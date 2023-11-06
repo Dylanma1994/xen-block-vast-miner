@@ -4,7 +4,7 @@
   "eth_address": "0xEfE59673DE05Bce7CF3aae176A78D03Be15dA676",
   "machine_configs": [
     {
-      "gpu_name": "RTX_4090",
+      "gpu_name": "RTX_3090",
       "gpu_nums": 2,
       "dph": 0.5,
       "cuda_compute": 89,
