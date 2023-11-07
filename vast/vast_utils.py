@@ -130,7 +130,7 @@ def parse_vast_url(url_str: str) -> tuple[int, str]:
         if len(url_parts) == 2:
             instance_id_str, path = url_parts
         else:
-            raise ValueError("Invalid VRL (Vast resource locator).")
+            raise ValueError("Invalid VRL (Vast resources locator).")
 
         try:
             instance_id = int(instance_id_str)
