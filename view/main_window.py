@@ -3,7 +3,7 @@ from PySide6.QtGui import QDesktopServices, QIcon
 from PySide6.QtWidgets import QApplication
 
 from common.signal_bus import signalBus
-from qfluentwidgets import FluentIcon as FIF, NavigationItemPosition, SplashScreen
+from qfluentwidgets import FluentIcon as FIF, NavigationItemPosition, SplashScreen, NavigationAvatarWidget
 from qfluentwidgets import FluentWindow, MessageBox
 
 from common.translator import Translator
@@ -34,7 +34,7 @@ class MainWindow(FluentWindow):
     def initWindow(self):
         self.resize(960, 780)
         self.setMinimumWidth(760)
-        self.setWindowIcon(QIcon(':/xen-block-vast-miner/images/logo.png'))
+        self.setWindowIcon(QIcon(f"{cfg.imagePath}/logo.png"))
         self.setWindowTitle('Miner XenBlocks On Vast')
 
         self.setMicaEffectEnabled(cfg.get(cfg.micaEnabled))
@@ -58,7 +58,15 @@ class MainWindow(FluentWindow):
     def initNavigation(self):
         t = Translator()
         self.addSubInterface(self.homeInterface, FIF.HOME, self.tr('Home'))
-        # self.addSubInterface(self.settingInterface, FIF.SETTING, self.tr('Setting'), NavigationItemPosition.BOTTOM)
+        self.navigationInterface.addSeparator()
+
+        self.navigationInterface.addWidget(
+            routeKey='avatar',
+            widget=NavigationAvatarWidget('dylan', f"{cfg.imagePath}/logo.png"),
+            onClick=self.onSupport,
+            position=NavigationItemPosition.BOTTOM
+        )
+        self.addSubInterface(self.settingInterface, FIF.SETTING, self.tr('Setting'), NavigationItemPosition.BOTTOM)
 
     def onSupport(self):
         w = MessageBox(

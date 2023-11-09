@@ -32,11 +32,10 @@ class Config(QConfig):
     projectPath = os.path.abspath(os.path.dirname(__file__)) + '/..'
     qssPath = projectPath + '/resources/qss'
     imagePath = projectPath + '/resources/images'
-    # folders
-    musicFolders = ConfigItem(
-        "Folders", "LocalMusic", [], FolderListValidator())
-    downloadFolder = ConfigItem(
-        "Folders", "Download", "app/download", FolderValidator())
+
+    # folder
+    sshFolder = ConfigItem(
+        "SSH", "PrivateKey", [], FolderListValidator())
 
     # main window
     micaEnabled = ConfigItem("MainWindow", "MicaEnabled", isWin11(), BoolValidator())

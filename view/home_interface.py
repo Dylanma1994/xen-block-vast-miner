@@ -46,9 +46,9 @@ class BannerWidget(QWidget):
         path.setFillRule(Qt.FillRule.WindingFill)
         w, h = self.width(), 200
         path.addRoundedRect(QRectF(0, 0, w, h), 10, 10)
-        path.addRect(QRectF(0, h-50, 50, 50))
-        path.addRect(QRectF(w-50, 0, 50, 50))
-        path.addRect(QRectF(w-50, h-50, 50, 50))
+        path.addRect(QRectF(0, h - 50, 50, 50))
+        path.addRect(QRectF(w - 50, 0, 50, 50))
+        path.addRect(QRectF(w - 50, h - 50, 50, 50))
         path = path.simplified()
 
         # draw background color
@@ -62,6 +62,7 @@ class BannerWidget(QWidget):
             self.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation)
         path.addRect(QRectF(0, h, w, self.height() - h))
         painter.fillPath(path, QBrush(pixmap))
+
 
 class HomeInterface(ScrollArea):
 
@@ -92,3 +93,8 @@ class HomeInterface(ScrollArea):
         basicInputView = SampleCardView(
             self.tr("Basic samples"), self.view)
         self.vBoxLayout.addWidget(basicInputView)
+        basicInputView.addSampleCard(f"{cfg.imagePath}/logo.png",
+                                     self.tr('Getting Started'),
+                                     self.tr('An overview of app development options and samples.'),
+                                     "",
+                                     0)
