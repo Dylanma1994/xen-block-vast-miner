@@ -1,7 +1,8 @@
 # coding: utf-8
-import os, sys
+import os
+import sys
 
-from PySide6.QtCore import Qt, QTranslator
+from PySide6.QtCore import QTranslator
 from PySide6.QtWidgets import QApplication
 from qfluentwidgets import FluentTranslator
 
@@ -20,7 +21,7 @@ app = QApplication(sys.argv)
 locale = cfg.get(cfg.language).value
 translator = FluentTranslator(locale)
 appTranslator = QTranslator()
-appTranslator.load(locale, "xen-block-vast-miner", ".", ":xen-block-vast-miner/i18n")
+appTranslator.load(locale, "", "", "resources/i18n")
 
 app.installTranslator(translator)
 app.installTranslator(appTranslator)

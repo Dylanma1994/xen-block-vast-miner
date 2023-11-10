@@ -36,6 +36,9 @@ class Config(QConfig):
     # folder
     sshFolder = ConfigItem(
         "SSH", "PrivateKey", [], FolderListValidator())
+    logFolder = ConfigItem(
+        "Log", "LogFolder", [], FolderListValidator()
+    )
 
     # main window
     micaEnabled = ConfigItem("MainWindow", "MicaEnabled", isWin11(), BoolValidator())
@@ -45,7 +48,7 @@ class Config(QConfig):
         "MainWindow", "Language", Language.AUTO, OptionsValidator(Language), LanguageSerializer(), restart=True)
 
     # Material
-    blurRadius  = RangeConfigItem("Material", "AcrylicBlurRadius", 15, RangeValidator(0, 40))
+    blurRadius = RangeConfigItem("Material", "AcrylicBlurRadius", 15, RangeValidator(0, 40))
 
     # software update
     checkUpdateAtStartUp = ConfigItem("Update", "CheckUpdateAtStartUp", True, BoolValidator())
@@ -58,7 +61,7 @@ REPO_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets"
 FEEDBACK_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets/issues"
 RELEASE_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets/releases/latest"
 SUPPORT_URL = "https://afdian.net/a/zhiyiYo"
-
+VERSION = "v0.1"
 
 cfg = Config()
 cfg.themeMode.value = Theme.AUTO
