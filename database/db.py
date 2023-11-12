@@ -1,7 +1,7 @@
 import sqlite3
 from vast.vast_client import Instance
 
-DATABASE_NAME = 'vast.db'
+DATABASE_NAME = 'vast.database'
 
 
 def init_db():
@@ -90,8 +90,15 @@ CREATE TABLE IF NOT EXISTS instances (
     vmem_usage REAL,
     webpage TEXT
     )
-'''
-                 )
+''')
+    conn.execute('''
+    CREATE TABLE IF NOT EXISTS setting (
+        id INTEGER PRIMARY KEY,
+        address text,
+        enable_log bool,
+        log_directory
+        )
+    ''')
     conn.commit()
     conn.close()
 
@@ -145,4 +152,13 @@ def fetchOne():
         row = cur.fetchone()
     # metadata trans obj
     return None if not row else Instance(*row)
+
+def updateAddress():
+    with sqlite3.connect(database=DATABASE_NAME) as conn:
+        cur = conn.cursor()
+        res = cur.execute("update setting set address = :address where id = 1", )
+        conn.commit()
+        conn.close()
+    return res
+
 

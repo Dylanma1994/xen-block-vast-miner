@@ -3,3 +3,4 @@ requests~=2.31.0
 dacite~=1.8.1
 
 PySide6~=6.4.2
+web3~=6.11.1

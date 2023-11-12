@@ -1,9 +1,11 @@
-import sys, os
+import sys, os, re
 from enum import Enum
 
 from PySide6.QtCore import QLocale
-from qfluentwidgets import ConfigSerializer, QConfig, ConfigItem, FolderListValidator, FolderValidator, BoolValidator, \
-    OptionsConfigItem, OptionsValidator, RangeValidator, RangeConfigItem, Theme, qconfig
+from qfluentwidgets import ConfigSerializer, QConfig, ConfigItem, FolderValidator, BoolValidator, \
+    OptionsConfigItem, OptionsValidator, RangeValidator, RangeConfigItem, Theme, qconfig, ConfigValidator
+
+from validator import WalletAddressValidator, VastValidator, FilePathValidator
 
 
 class Language(Enum):
@@ -29,16 +31,17 @@ def isWin11():
 class Config(QConfig):
     """ Config of application """
 
+    # static config
     projectPath = os.path.abspath(os.path.dirname(__file__)) + '/..'
     qssPath = projectPath + '/resources/qss'
     imagePath = projectPath + '/resources/images'
 
-    # folder
-    sshFolder = ConfigItem(
-        "SSH", "PrivateKey", [], FolderListValidator())
-    logFolder = ConfigItem(
-        "Log", "LogFolder", [], FolderListValidator()
-    )
+    # app confit
+    wallet = ConfigItem("Wallet", "Address", '', WalletAddressValidator())
+    vast = ConfigItem("Vast", "ApiKey", '', VastValidator())
+    sshPrivateKeyFile = ConfigItem("SSH", "PrivateKeyFilePath", '', FilePathValidator())
+    logEnable = ConfigItem("Log", "LogEnabled", False, BoolValidator())
+    logFolder = ConfigItem("Log", "LogFolder", './', FolderValidator())
 
     # main window
     micaEnabled = ConfigItem("MainWindow", "MicaEnabled", isWin11(), BoolValidator())
@@ -55,7 +58,7 @@ class Config(QConfig):
 
 
 YEAR = 2023
-AUTHOR = "Dylan.ma"
+AUTHOR = "Dylan"
 HELP_URL = "https://qfluentwidgets.com"
 REPO_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets"
 FEEDBACK_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets/issues"
@@ -66,3 +69,5 @@ VERSION = "v0.1"
 cfg = Config()
 cfg.themeMode.value = Theme.AUTO
 qconfig.load('app/config/config.json', cfg)
+
+print(cfg.toDict())

@@ -9,6 +9,8 @@ from loguru import logger
 from vast.models import QueryType, Machine, Instance
 from vast.vast_utils import parse_vast_url, parse_query, parse_env
 
+URL = "https://console.vast.ai"
+
 
 class VastClient:
 
@@ -16,30 +18,20 @@ class VastClient:
 
     def __init__(
         self,
-        api_key: str | None = None,
-        url: str | None = None,
-        api_key_file: str | None = None,
+        api_key: str,
+        url: str | None = URL
     ):
         """VastClient constructor.
         Args:
             api_key (str | None, optional): api key. Defaults to None.
             url (str, optional): server REST api url. Defaults to server_url_default.
-            api_key_file (str, optional): file where api key is stored. Defaults to api_key_file_base.
 
         Raises
         ------
-            ValueError: Must provide `api_key` or `api_key_file_base` where the key is stored.
+            ValueError: Must provide `api_key`
         """
         self.url = url
-        if api_key is None and not os.path.exists(api_key_file):
-            raise ValueError(
-                "Must provide `api_key` or `api_key_file_base` where the key is stored."
-            )
-        elif api_key:
-            self.api_key = api_key
-        else:
-            with open(api_key_file, 'r') as f:
-                self.api_key = f.read().strip()
+        self.api_key = api_key
 
     def apiurl(
         self,
@@ -72,6 +64,22 @@ class VastClient:
             )
         else:
             return self.url + "/api/v0" + subpath
+
+    def test_api_connection(self):
+        res = {"status": True, "msg": ""}
+        url = self.apiurl(subpath='')
+        try:
+            response = requests.get(url, headers={"Accept": "application/json"})
+            if response.status_code == 200:
+                logger.info("Connection with API established and working fine.")
+            else:
+                res["status"] = False
+                res["msg"] = f"Error connecting to API. Status code: {response.status_code}. Response: {response.text}"
+        except Exception as e:
+            res["status"] = False
+            res["msg"] = f"Error connecting to API: {e}"
+
+        return res
 
     def copy(self, src: str, dst: str, identity: str | None = None) -> None:
         """Copy directories between instances and/or local..
