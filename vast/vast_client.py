@@ -529,7 +529,7 @@ class VastClient:
         create_from: str | None = None,
         force: bool | None = None,
         disk: float = 10,
-    sys=None) -> str | None:
+    sys=None):
         """Creates a new instance.
 
         Args:
