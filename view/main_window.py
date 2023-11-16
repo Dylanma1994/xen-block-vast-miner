@@ -9,6 +9,7 @@ from qfluentwidgets import FluentWindow, MessageBox
 from common.translator import Translator
 from view.home_interface import HomeInterface
 from view.setting_interface import SettingInterface
+from view.vast_interface import VastInterface
 from common.config import SUPPORT_URL, cfg
 
 
@@ -20,6 +21,7 @@ class MainWindow(FluentWindow):
 
         # create sub interface
         self.homeInterface = HomeInterface(self)
+        self.vastInterface = VastInterface(self)
         self.settingInterface = SettingInterface(self)
 
         # enable acrylic effect

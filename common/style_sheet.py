@@ -7,6 +7,7 @@ from qfluentwidgets import StyleSheetBase, Theme, qconfig
 class StyleSheet(StyleSheetBase, Enum):
     LINK_CARD = "link_card"
     HOME_INTERFACE = 'home_interface'
+    VAST_INTERFACE = 'vast_interface'
     SETTING_INTERFACE = 'setting_interface'
     SAMPLE_CARD = 'sample_card'
 
