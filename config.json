@@ -1,7 +1,7 @@
 {
   "url": "https://console.vast.ai",
   "vast_api_key": "xxx",
-  "eth_address": "xxxxx",
+  "eth_address": "xxx",
   "machine_configs": [
     {
       "gpu_name": "RTX_3090",
